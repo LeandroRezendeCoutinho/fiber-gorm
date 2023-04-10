@@ -7,10 +7,16 @@ import (
 	"main/internal/handlers"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 )
 
 func main() {
 	app := fiber.New()
+	app.Use(logger.New(logger.Config{
+		Format:     "[${ip}]:${port} ${path} ${method} ${status} ${latency}\n",
+		TimeFormat: "02-Jan-2006",
+		TimeZone:   "America/Sao_Paulo",
+	}))
 
 	config.Connect()
 
